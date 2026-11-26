@@ -1,0 +1,402 @@
+/* 
+MEDALLAS FANTÁSTICAS 
+
+IMPORTANTE: HAY COSAS SUJETAS A JAVASCRIPT, ESTÁN PLANTEADAS CÓMO SERÍAN,
+PERO FALTAN SER AÑADIDAS DEBIDO A QUE TODAVÍA NO SÉ COMO UTLIZIARLO.
+  
+Índice:
+     1. Variables (colores)
+     2. Base (estilos generales)
+     3. Cabecera
+     4. Estrella del menú
+     5. Menú desplegable
+     6. Contenido y títulos
+     7. Botones, listas y formulario
+     8. Medallero (Perfiles)
+     9. Ficha de perfil
+    10. Medallero (Medallas)
+    11. Animaciones
+   
+   */
+
+   /* 
+   1. VARIABLES
+   Colores de la web.
+    */
+
+ :root{
+    --rojo: oklch(0.56 0.18 30); /*Estándar*/
+    --rojo-oscuro: oklch(0.38 0.16 18); /*Degradados*/
+    --blanco: #ffffff; /*Fondo y texto sobre rojo*/
+    --texto: oklch(0.2 0.04 265); /*color del texto normal*/
+    --gris-claro: oklch(84.498% 0.0125 248.154); /*Fondo de barras vacías*/
+    --gris-texto: oklch(55.005% 0.05527 257.009); /*texto secundario y bordes*/
+}  
+
+/*
+   2. BASE
+   */
+*{
+    box-sizing: border-box;
+}
+body{
+    margin: 0;
+    font-family: 'Trebuchet MS', sans-serif;
+    background: var(--blanco);
+    color: var(--texto);
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+/*3. Cabecera
+*/
+
+.cabecera{
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--rojo);
+    color: var(--blanco);
+    box-shadow: 0 4px 16px -9px var(--rojo);
+}
+
+.cabecera.abierta {
+    background: linear-gradient(180deg, var(--rojo) 30%, var(--rojo-oscuro));
+}
+
+.cabecera .fila{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1rem;
+}
+
+.marca{
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: clamp(1.1rem, 3vw, 1.75rem);
+}
+
+/*4.Estrella del Menú
+*/
+
+.estrella{
+    background: none;
+    border: 0;
+    color: var(--blanco);
+    font-size: 2.6rem;
+    line-height: 1;
+    cursor: pointer;
+
+}
+
+.estrella:hover{
+    transform: scale(1.1);
+    transition: 0.2s;
+}
+
+.estrella.girar{
+    animation: girar 0.7s cubic-bezier(0.5, -0.3, 0.4, 1.4);
+}
+
+/*5. Menú desplegable
+*/
+
+.menu {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.4s;
+}
+
+.menu.abierto{
+    grid-template-rows: 1fr;
+}
+
+.menu ul{
+    overflow: hidden;
+    min-height: 0;
+    list-style: none;
+    max-width: 56rem;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+}
+
+.menu.abierto ul{
+    padding-bottom: 1.25rem;
+}
+
+.menu a{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem;
+    border-radius: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: clamp(0.75rem, 2vw, 1.15rem);
+}
+
+.menu a span{
+    font-size: 1.8rem;
+}
+
+.menu a:hover{
+    background: rgb(255 255 255 / 0.12);
+}
+
+/*6. Contenido y titulos
+*/
+
+.contenido{
+    max-width: 64rem;
+    margin: 0 auto;
+    padding: 0 1rem 4rem;
+}
+
+.titulo{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.titulo span{
+    flex: 1;
+    height: 1px;
+    background: var(--texto);
+    opacity: 0.5;
+}
+
+.titulo h1{
+    margin: 0;
+    color: var(--rojo);
+    text-transform: uppercase;
+    font-size: 1.85rem;
+}
+
+.intro,.centro{
+    text-align: center;
+    font-size:1.15rem;
+}
+
+/*7. Botones, listas, formulario
+*/
+
+.boton{
+    display: inline-block;
+    background: var(--rojo);
+    color: var(--blanco);
+    border: 0;
+    padding: 0.7rem 1.4rem;
+    border-radius: 0.6rem;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.lista{
+    max-width: 36rem;
+    margin: 0 auto;
+    line-height: 2;
+    font-size: 1.1rem;
+}
+
+.formulario{
+    max-width: 22rem;
+    margin: 0 auto;
+    display: grid;
+    gap: 1rem;
+}
+
+.formulario label{
+    display: grid;
+    gap: 0.3rem;
+    font-weight: 700;
+}
+
+.formulario input{
+    padding: 0.6rem;
+    border: 1px solid var(--gris-texto);
+    border-radius: 0.5rem;
+    font: inherit;
+}
+
+/* 8. Medallero (Perfiles)
+*/
+
+.rejilla {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 150px));
+    justify-content: center;
+    gap: 1rem;
+}
+
+.foto {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 1rem;
+    display: grid;
+    place-items: center;
+    color: var(--blanco);
+    font-size: 2rem;
+    font-weight: 700;
+    background: radial-gradient(circle at 30% 25%,
+                oklch(0.78 0.12 var(--tono, 30)),
+                oklch(0.42 0.14 var(--tono, 30)));
+    box-shadow: 0 8px 20px -10px rgb(0 0 0 / 0.4);
+    transition: transform 0.2s;
+}
+
+.foto i {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.6rem;
+    font-style: normal;
+    font-size: 1.1rem;
+}
+
+.perfil:hover .foto {
+    transform: translateY(-4px);
+}
+
+.nombre {
+    position: relative;
+    margin-top: 0.5rem;
+    height: 2rem;
+    border-radius: 99px;
+    background: var(--gris-claro);
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    font-size: 0.95rem;
+}
+
+.nombre span{
+    position: absolute;
+    inset: 0 auto 0 0;
+    background: var(--rojo);
+    opacity: 0.35;
+}
+
+.nombre b {
+    position: relative;
+}
+
+/*9. Ficha de perfil
+*/
+.ficha{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.foto.grande{
+    width: 11rem;
+}
+
+.datos {
+    min-width: 16rem;
+    border-left: 1px solid var(--gris-texto);
+    padding-left: 1.5rem;
+}
+
+.datos h1{
+    margin: 0;
+    color: var(--rojo);
+    font-size: 2.2rem;
+}
+
+.apodo {
+    margin: 0.2rem 0;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.edad {
+    margin: 0;
+    color: var(--gris-texto);
+}
+
+.etq {
+    margin: 1rem 0 0.2rem;
+    font-size: 0.8rem;
+    color: var(--rojo);
+}
+
+.barra {
+    height: 0.5rem;
+    border-radius: 99px;
+    background: var(--gris-claro);
+}
+
+.barra span{
+    display: block;
+    height: 100%;
+    border-radius: 99px;
+    background: var(--rojo);
+}
+
+/*10. Medallero (Medallas)
+*/
+
+.medallero{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 2rem 1rem;
+}
+
+.medalla{
+    text-align: center;
+}
+
+.medalla p{
+    margin-top: 0.7rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.disco {
+    width: 6.5rem;
+    height: 6.5rem;
+    margin: 0 auto;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 2.8rem;
+    background: radial-gradient(circle at 35% 30%,
+                oklch(0.9 0.08 var(--tono, 30)),
+                oklch(0.62 0.16 var(--tono, 30)));
+    border: 5px solid oklch(0.96 0.03 var(--tono, 30));
+    box-shadow: 0 0 0 2px oklch(0.74 0.1 var(--tono, 30)),
+                0 8px 18px -8px rgb(0 0 0 / 0.35);
+    transition: transform 0.2s;
+}
+
+.disco:hover{
+    transform: scale(1.08) rotate(-4deg);
+}
+
+.bloqueada .disco{
+    filter: grayscale(1);
+    opacity: 0.35;
+}
+
+/*11. Animaciones
+*/
+
+@keyframes girar {
+    50% { transform: rotate(216deg) scale(1.25);}
+    to { transform: rotate(360deg);}
+}
